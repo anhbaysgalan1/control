@@ -2,11 +2,7 @@ name: Build special named branch
 on:
   push:
     branches:
-      - 'features/**'
-      - 'feature/**'
-      - 'feat/**'
-      - 'fix/**'
-      - 'hotfix/**'
+      - 'main'
 jobs:
   BuildDockerImage:
     name: 'Build & Publish Docker'
