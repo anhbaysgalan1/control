@@ -23,4 +23,4 @@ jobs:
           VERSION: v1.0.0  # Replace with your desired version
         run: |
           docker build -t warmestman/control:${{ env.VERSION }} .
-          docker push warmestmane/control:${{ env.VERSION }}
+          docker push warmestman/control:${{ env.VERSION }}
