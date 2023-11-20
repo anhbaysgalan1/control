@@ -112,21 +112,16 @@ export const loader: LoaderFunction = async ({ request, params }) => {
           `${API_WALLET}/wallets/${params.walletId}/balances/${balance.name}`,
           'data'
         );
-        let a = '';
         if (detailedBalance) {
-          if (detailedBalance.assets) {
-            Object.keys(detailedBalance.assets).forEach((key: string) => {
-              a = `${a}${key} ${detailedBalance.assets[key]} `;
-            });
-          } else {
-            // Handle the case when assets are null
-            a = '0';
-          }
-      
-          balances.push({ ...detailedBalance, formattedAssets: a });
+          let a = '';
+        const assets = detailedBalance.assets || {}; // Assign a default empty object if assets is null/undefined
+        Object.keys(assets).forEach((key: string) => {
+            a = `${a}${key} ${assets[key]} `;
+        });
+
+        balances.push({ ...detailedBalance, formattedAssets: a });
         }
       }
-
       return {
         wallet,
         balances: balances.sort((a) => {
