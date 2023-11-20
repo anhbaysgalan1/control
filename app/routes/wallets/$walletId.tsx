@@ -112,14 +112,19 @@ export const loader: LoaderFunction = async ({ request, params }) => {
           `${API_WALLET}/wallets/${params.walletId}/balances/${balance.name}`,
           'data'
         );
-        if (detailedBalance && detailedBalance.assets) {
-          let a = '';
-          Object.keys(detailedBalance.assets).forEach((key) => {
+        let a = '';
+        if (detailedBalance) {
+          if (detailedBalance.assets) {
+            Object.keys(detailedBalance.assets).forEach((key: string) => {
               a = `${a}${key} ${detailedBalance.assets[key]} `;
-          });
+            });
+          } else {
+            // Handle the case when assets are null
+            a = '0';
+          }
       
           balances.push({ ...detailedBalance, formattedAssets: a });
-      }
+        }
       }
 
       return {
